@@ -4,11 +4,15 @@ let autoClickerSpeed = 1000; // Initial auto-clicker speed in ms
 let autoClickerInterval = null;
 let farmerInterval = null;
 let marmerInterval = null;
+let sarmerInterval = null;
+let carmerInterval = null;
 let sessionClicks = 0;
 let isModerator = false;
 let isAdmin = false;
 let isFarmer = false;
 let isWhat = false;
+let isIdk = false;
+
 
 let isAutoClickerPurchased = false;
 
@@ -86,6 +90,18 @@ document.getElementById('What').addEventListener('click', () => {
     }
 });
 
+document.getElementById('Idk').addEventListener('click', () => {
+    if (!isIdk && coins >= 100000) {
+        coins -= 1000000;
+        carmerInterval = setInterval(() => {
+            coins += 1000000000;
+            updateCoinCount();
+        }, 5000); // 1 minute interval
+        isIdk = true;
+        updateCoinCount();
+    }
+});
+
 document.getElementById('settingsBtn').addEventListener('click', () => {
     document.getElementById('settingsModal').style.display = 'flex';
 });
@@ -121,6 +137,7 @@ function saveGame() {
         isAdmin,
         isFarmer,
         isWhat,
+        isIdk,
         isAutoClickerPurchased
     };
     localStorage.setItem('clickerGameState', JSON.stringify(gameState));
@@ -156,6 +173,9 @@ function loadGame() {
         }
         if (isWhat) {
             document.getElementById('What').disabled = true;
+        }
+        if (isIdk) {
+            document.getElementById('Idk').disabled = true;
         }
         updateCoinCount();
         updateSessionClicks();
