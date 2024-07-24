@@ -59,10 +59,12 @@ document.getElementById('moderator').addEventListener('click', () => {
 });
 
 document.getElementById('admin').addEventListener('click', () => {
-    if (!isAdmin && coins >= 100000) {
-        coins -= 100000;
-        clickValue += 5000; // Increase click value by 100
-        isAdmin = true;
+    if (!isAdmin && coins >= 20000) {
+        coins -= 20000;
+        farmerInterval = setInterval(() => {
+            coins += 7000;
+            updateCoinCount();
+        }, 60000); // 1 minute interval
         document.getElementById('admin').disabled = true;
         updateCoinCount();
     }
