@@ -8,6 +8,7 @@ let sessionClicks = 0;
 let isModerator = false;
 let isAdmin = false;
 let isFarmer = false;
+let isWhat = false;
 
 let isAutoClickerPurchased = false;
 
@@ -40,7 +41,7 @@ document.getElementById('autoClicker').addEventListener('click', () => {
 });
 
 document.getElementById('farmer').addEventListener('click', () => {
-    if (coins >= 2000) {
+    if (!isFarmer && coins >= 2000) {
         coins -= 2000;
         farmerInterval = setInterval(() => {
             coins += 3000;
@@ -69,6 +70,18 @@ document.getElementById('admin').addEventListener('click', () => {
             updateCoinCount();
         }, 60000); // 1 minute interval
         isAdmin = true;
+        updateCoinCount();
+    }
+});
+
+document.getElementById('What').addEventListener('click', () => {
+    if (!isWhat && coins >= 50000) {
+        coins -= 50000;
+        sarmerInterval = setInterval(() => {
+            coins += 10000;
+            updateCoinCount();
+        }, 60000); // 1 minute interval
+        isWhat = true;
         updateCoinCount();
     }
 });
@@ -107,6 +120,7 @@ function saveGame() {
         isModerator,
         isAdmin,
         isFarmer,
+        isWhat,
         isAutoClickerPurchased
     };
     localStorage.setItem('clickerGameState', JSON.stringify(gameState));
@@ -121,6 +135,7 @@ function loadGame() {
         isModerator = savedState.isModerator;
         isAdmin = savedState.isAdmin;
         isFarmer = savedState.isFarmer;
+        isWhat = savedState.isWhat;
         isAutoClickerPurchased = savedState.isAutoClickerPurchased;
 
         if (isAutoClickerPurchased) {
@@ -138,6 +153,9 @@ function loadGame() {
         }
         if (isFarmer) {
             document.getElementById('farmer').disabled = true;
+        }
+        if (isWhat) {
+            document.getElementById('What').disabled = true;
         }
         updateCoinCount();
         updateSessionClicks();
