@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clicker Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Монеты: <span id="coinCount">0</span></h1>
+            <div class="profile">
+                <h2>Профиль</h2>
+                <p>Кликов за сеанс: <span id="sessionClicks">0</span></p>
+                <button id="settingsBtn">Настройки</button>
+            </div>
+        </div>
+        <div class="main">
+            <button id="clickerBtn">
+                <img src="Clicker.png" alt="Clicker">
+            </button>
+        </div>
+        <div class="sidebar">
+            <h2>Прокачка</h2>
+            <button class="upgrade-btn" id="addClick">Добавить 1 клик (50 монет)</button>
+            <button class="upgrade-btn" id="autoClicker">Автокликер (500 монет)</button>
+            <button class="upgrade-btn" id="farmer">Фермер (2000 монет)</button>
+            <button class="upgrade-btn" id="moderator">Стать модератором (10000 монет)</button>
+            <button class="upgrade-btn" id="admin">Стать админом (100000 монет)</button>
+        </div>
+    </div>
+
+    <div class="settings-modal" id="settingsModal">
+        <div class="settings-content">
+            <h2>Настройки</h2>
+            <button class="theme-btn" id="toggleTheme">Сменить тему</button>
+            <button class="reset-btn" id="resetGame">Сбросить данные</button>
+            <button class="close-btn" id="closeSettings">Закрыть</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
