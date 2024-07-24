@@ -3,9 +3,12 @@ let clickValue = 1;
 let autoClickerSpeed = 1000; // Initial auto-clicker speed in ms
 let autoClickerInterval = null;
 let farmerInterval = null;
+let marmerInterval = null;
 let sessionClicks = 0;
 let isModerator = false;
 let isAdmin = false;
+let isFarmer = false;
+
 let isAutoClickerPurchased = false;
 
 document.getElementById('clickerBtn').addEventListener('click', () => {
@@ -43,7 +46,7 @@ document.getElementById('farmer').addEventListener('click', () => {
             coins += 3000;
             updateCoinCount();
         }, 60000); // 1 minute interval
-        document.getElementById('farmer').disabled = true;
+        isFarmer = true;
         updateCoinCount();
     }
 });
@@ -61,11 +64,11 @@ document.getElementById('moderator').addEventListener('click', () => {
 document.getElementById('admin').addEventListener('click', () => {
     if (!isAdmin && coins >= 20000) {
         coins -= 20000;
-        farmerInterval = setInterval(() => {
+        marmerInterval = setInterval(() => {
             coins += 7000;
             updateCoinCount();
         }, 60000); // 1 minute interval
-        document.getElementById('admin').disabled = true;
+        isAdmin = true;
         updateCoinCount();
     }
 });
@@ -103,6 +106,7 @@ function saveGame() {
         sessionClicks,
         isModerator,
         isAdmin,
+        isFarmer,
         isAutoClickerPurchased
     };
     localStorage.setItem('clickerGameState', JSON.stringify(gameState));
@@ -116,6 +120,7 @@ function loadGame() {
         sessionClicks = savedState.sessionClicks;
         isModerator = savedState.isModerator;
         isAdmin = savedState.isAdmin;
+        isFarmer = savedState.isFarmer;
         isAutoClickerPurchased = savedState.isAutoClickerPurchased;
 
         if (isAutoClickerPurchased) {
@@ -130,6 +135,9 @@ function loadGame() {
         }
         if (isAdmin) {
             document.getElementById('admin').disabled = true;
+        }
+        if (isFarmer) {
+            document.getElementById('farmer').disabled = true;
         }
         updateCoinCount();
         updateSessionClicks();
